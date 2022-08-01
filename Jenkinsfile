@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube Analysis') {
+        stage('Static Analysis') {
             environment {
                 sonarHome = tool 'SONAR_SCANNER'
             }
@@ -42,7 +42,7 @@ pipeline {
                 }
             }
         }
-        stage('Run API') {
+        stage('Run Application') {
             steps {
                 script {
                     // Criando a rede 'jenkins_test'
