@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PROJECT_NAME = "conversor-temperatura"
+        PROJECT_NAME = "conversao-temperatura"
         REPOSITORY = "gabriel2012rissi/${env.PROJECT_NAME}"
         PROJECT_VERSION = "v1.0.0"
     }
