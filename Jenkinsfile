@@ -94,7 +94,7 @@ pipeline {
                 script {
                     echo 'Triggering Manifest Update...'
                     build job: 'conversao-temperatura-manifest-update', parameters: [
-                        string(name: "DOCKER_IMAGE", value: appImage.id)
+                        string(name: "DOCKER_IMAGE", value: "${env.REPOSITORY}:${IMAGE_TAG}")
                     ]
                 }
             }
