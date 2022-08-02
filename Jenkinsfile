@@ -3,7 +3,6 @@ pipeline {
     environment {
         PROJECT_NAME = "conversao-temperatura"
         REPOSITORY = "gabriel2012rissi/${env.PROJECT_NAME}"
-        PROJECT_VERSION = "v1.0.0"
     }
     stages {
         stage('Checkout') {
@@ -11,11 +10,8 @@ pipeline {
                 script {
                     // Obtendo o hash do commit atual
                     COMMIT = "${GIT_COMMIT.substring(0,8)}"
-                    if ("${env.BRANCH_NAME}" == "main") {
-                        IMAGE_TAG = "${env.PROJECT_VERSION}"
-                    } else {
-                        IMAGE_TAG = "${env.BRANCH_NAME}"
-                    }
+                    // Criando a tag da imagem
+                    IMAGE_TAG = "${env.BRANCH_NAME}"
                 }
             }
         }
@@ -79,7 +75,7 @@ pipeline {
                 script {
                     // Enviar as imagens para o repositório do Docker Hub
                     docker.withRegistry("https://registry.hub.docker.com", "dockerhub") {
-                        if ("${env.BRANCH_NAME}" == "main") {
+                        if ("${env.BRANCH_NAME}" == "master") {
                             appImage.push("latest")
                             appImage.push("${IMAGE_TAG}")
                         } else {
