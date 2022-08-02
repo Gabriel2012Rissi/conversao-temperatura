@@ -31,7 +31,7 @@ pipeline {
                    -Dsonar.branch.name=${env.BRANCH_NAME} \
                    -Dsonar.sources=. \
                    -Dsonar.host.url=http://sonarqube:9000 \
-                   -Dsonar.login=4221c6f3ead8ddd762ef9c8615f50957e7ab1d97
+                   -Dsonar.login=275ebb556ebdcf5f6ce6ad67e2272a8e6ada4faf
                    """
             }
         }
@@ -86,6 +86,16 @@ pipeline {
                             appImage.push("${IMAGE_TAG}")
                         }
                     }
+                }
+            }
+        }
+        stage('Trigger Manifest Update') {
+            steps {
+                script {
+                    echo 'Triggering Manifest Update...'
+                    build job: 'conversao-temperatura-manifest-update', parameters: [
+                        string(name: "DOCKER_IMAGE", value: appImage.id)
+                    ]
                 }
             }
         }
